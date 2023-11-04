@@ -1,6 +1,8 @@
 package projeto.chess_Project.chess;
 
 import projeto.chess_Project.board.Board;
+import projeto.chess_Project.board.Position;
+import projeto.chess_Project.chess.pieces.Rook;
 
 public class ChessMatch {
     
@@ -10,6 +12,7 @@ public class ChessMatch {
     public ChessMatch(){
         
         this.board = new Board(8,8);
+        InitialSetup();
     }
 
 
@@ -22,5 +25,12 @@ public class ChessMatch {
             }
         }
         return matrix;
+    }
+
+    private void InitialSetup(){
+        board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
+        board.placePiece(new Rook(board, Color.WHITE), new Position(2, 2));
+        board.placePiece(new Rook(board, Color.WHITE), new Position(2, 3));
+
     }
 }
