@@ -28,7 +28,7 @@ public class ChessMatch {
     }
 
     private void InitialSetup(){
-        board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
+        board.placePiece(new Rook(board, Color.WHITE), new Position(1, 1));
         board.placePiece(new Rook(board, Color.WHITE), new Position(2, 2));
         board.placePiece(new Rook(board, Color.WHITE), new Position(2, 3));
 
