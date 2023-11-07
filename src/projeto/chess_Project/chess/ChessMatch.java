@@ -28,6 +28,17 @@ public class ChessMatch {
         }
         return matrix;
     }
+
+    public boolean[][] possibleMoves(ChessPosition position){
+        Position pos = position.toPosition();
+
+        validateOriginPosition(pos);
+
+        return board.getPiece(pos).possibleMoves();
+    }
+
+
+
     public ChessPiece peformChessMove(ChessPosition origin, ChessPosition destination){
         Position oPosition = origin.toPosition();
         Position dPosition = destination.toPosition();

@@ -12,6 +12,8 @@ public class UI {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
 
     private static int UTF8_A = 65;
 
@@ -25,7 +27,7 @@ public class UI {
             System.out.print(!lastLine? (8 - i) + " " : "  ");
             for(int j = 0; j <  pieces.length; j++){
                 if(!lastLine){
-                  printPiece(pieces[i][j]);
+                  printPiece(pieces[i][j], false);
                 }else{
                     System.out.print((char) (UTF8_A + j) + " ");
                 }              
@@ -34,13 +36,36 @@ public class UI {
             System.out.println();
         }
     }
+    public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves){
+        boolean lastLine = false;
+
+        cleanScreen();
+
+        for(int i = 0; i <= pieces.length; i++){
+            System.out.print(!lastLine? (8 - i) + " " : "  ");
+            for(int j = 0; j <  pieces.length; j++){
+                if(!lastLine){
+                  printPiece(pieces[i][j], possibleMoves[i][j]);
+                }else{
+                    System.out.print((char) (UTF8_A + j) + " ");
+                }              
+            }
+            lastLine = (i + 1) == pieces.length;
+            System.out.println();
+        }
+  
+    }
 
     private static void cleanScreen() {
         System.out.println("\033[H\033[2J");
         System.out.flush();
     }
 
-    private static void printPiece(ChessPiece piece){
+    private static void printPiece(ChessPiece piece, boolean backGround){
+
+        if(backGround){
+            System.out.print(ANSI_RED_BACKGROUND);
+        }
 
         if(piece == null){
             System.out.print("-");
