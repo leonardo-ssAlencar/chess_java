@@ -1,5 +1,8 @@
 package projeto.chess_Project.chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import projeto.chess_Project.board.Board;
 import projeto.chess_Project.board.Piece;
 import projeto.chess_Project.board.Position;
@@ -11,6 +14,8 @@ public class ChessMatch {
     private Board board;
     private int turn;
     private Color currentPlayer;
+    private List<ChessPiece> capturedPieces;
+    private List<ChessPiece> piecesOnTheBoard;
 
 
     public ChessMatch(){
@@ -18,6 +23,8 @@ public class ChessMatch {
         this.board = new Board(8,8);
         this.turn = 1;
         this.currentPlayer = Color.WHITE;
+        this.capturedPieces = new ArrayList<>();
+        this.piecesOnTheBoard = new ArrayList<>();
         InitialSetup();
     }
 
@@ -43,28 +50,31 @@ public class ChessMatch {
 
 
 
-    public ChessPiece peformChessMove(ChessPosition origin, ChessPosition destination){
+    public void peformChessMove(ChessPosition origin, ChessPosition destination){
         Position oPosition = origin.toPosition();
         Position dPosition = destination.toPosition();
 
         validateOriginPosition(oPosition);
         validatedestinationPosition(oPosition, dPosition);
 
-        Piece capturedPiece = makeMove(oPosition, dPosition);
+        makeMove(oPosition, dPosition);
 
         nextTurn();
-
-        return (ChessPiece) capturedPiece;
     }
 
+ 
 
-    private Piece makeMove(Position origin, Position destination) {
+
+    private void makeMove(Position origin, Position destination) {
         Piece p = board.removePiece(origin);
         Piece captured = board.removePiece(destination);
         
-        board.placePiece(p, destination);
+        if(captured != null){
+          piecesOnTheBoard.remove(captured);
+          this.capturedPieces.add((ChessPiece)captured);
+        }
         
-        return captured;
+        board.placePiece(p, destination);
     }
 
 
@@ -106,6 +116,7 @@ public class ChessMatch {
 
 
     private void placeNewPiece(char column, int row, ChessPiece piece ){
+        this.piecesOnTheBoard.add(piece);
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }
 
@@ -117,7 +128,9 @@ public class ChessMatch {
         return turn;
     }
 
-    
+    public List<ChessPiece> getCaptured() {
+        return capturedPieces;
+    }
 
     private void InitialSetup(){
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));

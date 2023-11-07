@@ -1,6 +1,8 @@
 package projeto.chess_Project;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import projeto.chess_Project.chess.ChessMatch;
@@ -20,6 +22,8 @@ public class UI {
     
     public static void printMatch(ChessMatch match){
         printBoard(match.getPieces());
+        System.out.println();
+        capturedPieces(match.getCaptured());
         System.out.println();
         System.out.println("Turn: " + match.getTurn());
         System.out.println("Player " + match.getCurrentPlayer() + " turn");
@@ -104,6 +108,23 @@ public class UI {
        catch(RuntimeException err){
           throw new InputMismatchException("Formato invalido. valores validos [aA-zZ][1-9]");
        }
+    }
+
+
+    private static void capturedPieces(List<ChessPiece> pieces){
+
+        List<ChessPiece> wPieces = pieces.stream().filter(x -> x.getColor() == Color.WHITE).toList();
+        List<ChessPiece> bPieces = pieces.stream().filter(x -> x.getColor() == Color.BLACK).toList();
+
+        System.out.println("Captured Pieces: ");
+
+        System.out.println("WHITE");
+        System.out.println(ANSI_WHITE +Arrays.toString(wPieces.toArray()));
+
+        System.out.println("BLACK");
+        System.out.println(ANSI_YELLOW +Arrays.toString(bPieces.toArray()));
+
+        System.out.println(ANSI_RESET);
     }
 
     
