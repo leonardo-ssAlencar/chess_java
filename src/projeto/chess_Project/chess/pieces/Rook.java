@@ -1,6 +1,7 @@
 package projeto.chess_Project.chess.pieces;
 
 import projeto.chess_Project.board.Board;
+import projeto.chess_Project.board.Position;
 import projeto.chess_Project.chess.ChessPiece;
 import projeto.chess_Project.chess.Color;
 
@@ -17,7 +18,55 @@ public class Rook extends ChessPiece{
         return "R";
     }
 
-    
+    @Override
+    public boolean[][] possibleMoves() {
+
+        boolean mat[][] = new boolean[getBoard().getRows()][getBoard().getColumns()];
+        ChessPiece piece = (ChessPiece)this;
+
+        System.out.println("Aa");
+
+        Position pos = new Position(this.position.getRow() + 1, this.position.getColumn());
+        while (getBoard().positionExists(pos)){
+            if(getBoard().thereIsAPiece(pos) && !piece.isThereOpponentPiece(pos)) {
+                break;
+            }
+            mat[pos.getRow()][pos.getColumn()] = true;
+            pos.setRow(pos.getRow() + 1);
+        }
+
+        pos.setValues(this.position.getRow() - 1, this.position.getColumn());
+        while (getBoard().positionExists(pos)){
+            if(getBoard().thereIsAPiece(pos) && !piece.isThereOpponentPiece(pos)) {
+                break;
+            }
+            mat[pos.getRow()][pos.getColumn()] = true;
+            pos.setRow(pos.getRow() - 1);
+        }
+
+        pos.setValues(this.position.getRow(), this.position.getColumn() + 1);
+        while (getBoard().positionExists(pos)){
+            if(getBoard().thereIsAPiece(pos) && !piece.isThereOpponentPiece(pos)) {
+                break;
+            }
+            mat[pos.getRow()][pos.getColumn()] = true;
+            pos.setColumn(pos.getColumn() + 1);
+        }
+
+        pos.setValues(this.position.getRow(), this.position.getColumn() - 1);
+        while (getBoard().positionExists(pos)){
+            if(getBoard().thereIsAPiece(pos) && !piece.isThereOpponentPiece(pos)) {
+                break;
+            }
+            mat[pos.getRow()][pos.getColumn()] = true;
+            pos.setColumn(pos.getColumn() - 1);
+        }
+
+
+
+        return mat;
+    }
+
 
     
 }
