@@ -20,8 +20,7 @@ public class Main {
 
         while(true){
             try{
-                UI.printBoard(match.getPieces());
-             
+                UI.printMatch(match);
                 System.out.print("\nOrigin: ");
                 ChessPosition origin = UI.readChessPosition(sc);
 

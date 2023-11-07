@@ -9,11 +9,15 @@ import projeto.chess_Project.chess.pieces.Rook;
 public class ChessMatch {
     
     private Board board;
-    
+    private int turn;
+    private Color currentPlayer;
+
 
     public ChessMatch(){
         
         this.board = new Board(8,8);
+        this.turn = 1;
+        this.currentPlayer = Color.WHITE;
         InitialSetup();
     }
 
@@ -47,6 +51,9 @@ public class ChessMatch {
         validatedestinationPosition(oPosition, dPosition);
 
         Piece capturedPiece = makeMove(oPosition, dPosition);
+
+        nextTurn();
+
         return (ChessPiece) capturedPiece;
     }
 
@@ -63,9 +70,15 @@ public class ChessMatch {
 
     private void validateOriginPosition(Position origin) {
 
+
         if(!board.thereIsAPiece(origin)){
             throw new ChessException("Não existe peça na posição");
         }
+
+        if(((ChessPiece)board.getPiece(origin)).getColor() != currentPlayer){
+            throw new ChessException("Não é possivel mover a peça de outro jogador");
+        }
+        
         if(!board.getPiece(origin).isTherePossibleMove()){
             throw new ChessException("Não existe movimentos possiveis para essa peça");
         }
@@ -81,9 +94,27 @@ public class ChessMatch {
 
     }
 
+    private void nextTurn(){
+        this.turn++;
+        if(this.currentPlayer == Color.WHITE){
+            this.currentPlayer = Color.BLACK;
+        }
+        else{
+            this.currentPlayer = Color.WHITE;
+        }
+    }
+
 
     private void placeNewPiece(char column, int row, ChessPiece piece ){
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+    }
+
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public int getTurn() {
+        return turn;
     }
 
     

@@ -3,6 +3,7 @@ package projeto.chess_Project;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import projeto.chess_Project.chess.ChessMatch;
 import projeto.chess_Project.chess.ChessPiece;
 import projeto.chess_Project.chess.ChessPosition;
 import projeto.chess_Project.chess.Color;
@@ -14,9 +15,16 @@ public class UI {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-
+    
     private static int UTF8_A = 65;
-
+    
+    public static void printMatch(ChessMatch match){
+        printBoard(match.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + match.getTurn());
+        System.out.println("Player " + match.getCurrentPlayer() + " turn");
+            
+    }
     public static void printBoard(ChessPiece[][] pieces){
 
         boolean lastLine = false;
