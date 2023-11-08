@@ -18,7 +18,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
 
-        while(true){
+        while(!match.getCheckMate()){
             try{
                 UI.printMatch(match);
                 System.out.print("\nOrigin: ");
@@ -43,10 +43,11 @@ public class Main {
             System.out.println(err.getMessage());
             sc.nextLine();
         }
+        
 
         }
-
-
+        UI.printMatch(match);
+        
     }
 
     

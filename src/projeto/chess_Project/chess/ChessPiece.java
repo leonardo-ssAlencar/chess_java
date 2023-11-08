@@ -7,6 +7,7 @@ import projeto.chess_Project.board.Position;
 public abstract class ChessPiece extends Piece{
 
     private Color color;
+    private int moveCount;
 
 
     public ChessPiece(Board board, Color color) {
@@ -16,6 +17,18 @@ public abstract class ChessPiece extends Piece{
 
     public Color getColor() {
         return color;
+    }
+
+    protected void increaseMoveCount(){
+        this.moveCount++;
+    }
+
+    protected void decreaseMoveCount(){
+        this.moveCount--;
+    }
+
+    public int getMoveCount(){
+        return this.moveCount;
     }
 
     public boolean isThereOpponentPiece(Position position){

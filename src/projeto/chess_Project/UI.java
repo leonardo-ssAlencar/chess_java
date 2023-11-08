@@ -21,12 +21,17 @@ public class UI {
     private static int UTF8_A = 65;
     
     public static void printMatch(ChessMatch match){
+        
         printBoard(match.getPieces());
         System.out.println();
         capturedPieces(match.getCaptured());
         System.out.println();
         System.out.println("Turn: " + match.getTurn());
         System.out.println("Player " + match.getCurrentPlayer() + " turn");
+        if(match.getCheckMate()){
+            System.out.println("CHECKMATE!!");
+            System.out.println("Winner: " + match.getCurrentPlayer());
+        }
         if(match.getCheck()){
             System.out.println("CHECK!");
         }
